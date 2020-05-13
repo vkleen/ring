@@ -84,7 +84,7 @@ impl Key {
             }
 
             #[cfg(not(target_arch = "aarch64"))]
-            _ => {
+            Implementation::Fallback => {
                 extern "C" {
                     fn GFp_aes_nohw_set_encrypt_key(
                         user_key: *const u8,
@@ -135,7 +135,7 @@ impl Key {
             }
 
             #[cfg(not(target_arch = "aarch64"))]
-            _ => {
+            Implementation::Fallback => {
                 extern "C" {
                     fn GFp_aes_nohw_encrypt(a: &Block, r: *mut Block, key: &AES_KEY);
                 }
@@ -228,7 +228,8 @@ impl Key {
             }
 
             #[cfg(not(target_arch = "aarch64"))]
-            _ => {
+            Implementation::VPAES |
+            Implementation::Fallback => {
                 shift::shift_full_blocks(in_out, in_prefix_len, |input| {
                     self.encrypt_iv_xor_block(ctr.increment(), Block::from(input))
                 });
