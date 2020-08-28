@@ -70,7 +70,7 @@ void GFp_nistz256_point_add(P256_POINT *r, const P256_POINT *a,
                             const P256_POINT *b);
 
 // |GFp_nistz256_point_add| is defined in assembly language in X86-64 only.
-#if !defined(OPENSSL_X86_64)
+#if !defined(OPENSSL_X86_64) && !defined(OPENSSL_PPC64LE)
 
 static const BN_ULONG Q[P256_LIMBS] = {
   TOBN(0xffffffff, 0xffffffff),
