@@ -33,6 +33,7 @@ const X86: &str = "x86";
 const X86_64: &str = "x86_64";
 const AARCH64: &str = "aarch64";
 const ARM: &str = "arm";
+const POWERPC64: &str = "powerpc64";
 
 #[rustfmt::skip]
 const RING_SRCS: &[(&[&str], &str)] = &[
@@ -43,12 +44,12 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[], "crypto/mem.c"),
     (&[], "crypto/poly1305/poly1305.c"),
 
-    (&[AARCH64, ARM, X86_64, X86], "crypto/crypto.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/curve25519/curve25519.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/ecp_nistz.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p256.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p384.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/p256.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/crypto.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/curve25519/curve25519.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/fipsmodule/ec/ecp_nistz.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/fipsmodule/ec/gfp_p256.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/fipsmodule/ec/gfp_p384.c"),
+    (&[AARCH64, ARM, X86_64, X86, POWERPC64], "crypto/fipsmodule/ec/p256.c"),
 
     (&[X86_64, X86], "crypto/cpu-intel.c"),
 
@@ -90,6 +91,9 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[AARCH64], "crypto/chacha/asm/chacha-armv8.pl"),
     (&[AARCH64], "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl"),
     (&[AARCH64], SHA512_ARMV8),
+
+    (&[POWERPC64], "crypto/fipsmodule/bn/asm/ppc-mont.pl"),
+    (&[POWERPC64], "crypto/cpu-ppc.c"),
 ];
 
 const SHA256_X86_64: &str = "crypto/fipsmodule/sha/asm/sha256-x86_64.pl";
@@ -135,6 +139,7 @@ const RING_INCLUDES: &[&str] =
 #[rustfmt::skip]
 const RING_PERL_INCLUDES: &[&str] =
     &["crypto/perlasm/arm-xlate.pl",
+      "crypto/perlasm/ppc-xlate.pl",
       "crypto/perlasm/x86gas.pl",
       "crypto/perlasm/x86nasm.pl",
       "crypto/perlasm/x86asm.pl",
@@ -230,6 +235,7 @@ const ASM_TARGETS: &[(&str, Option<&str>, Option<&str>)] = &[
     ("arm", Some("ios"), Some("ios32")),
     ("arm", None, Some("linux32")),
     ("wasm32", None, None),
+    ("powerpc64", None, Some("linux64le")),
 ];
 
 const WINDOWS: &str = "windows";
