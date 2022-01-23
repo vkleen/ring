@@ -1,3 +1,23 @@
+This is the repository for the efforts to add support for POWER into the
+*ring* crypto library for Rust.
+
+If you want to use this in your project, add the following to your `Cargo.toml`
+to override the source for *ring*:
+
+```
+[patch.crates-io]
+ring = { git = "https://github.com/ibm/ring.git", branch = "ppc-0.16.20" }
+```
+
+There are two branches of note:
+ - `main-ppc` for the somewhat-upstream version
+ - `ppc-0.16.20` for the current latest version published to crates.io
+
+
+Original README:
+----
+
+
 THE SOFTWARE IS PROVIDED "AS IS" AND BRIAN SMITH AND THE AUTHORS DISCLAIM
 ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES
 OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL BRIAN SMITH OR THE AUTHORS
